@@ -26,3 +26,58 @@ Things you may want to cover:
 
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
+
+
+DB設計
+
+**user**
+
+*association*
+
+has_many :prototypes likes comments
+
+*table*
+
+string :name email password work member  text :profile  avatar
+
+**prototype**
+
+*associatiom*
+
+has_many :caputuredimages likes comments  belongs_to :user
+
+*table*
+
+string :name  integer user_id  text :catchcopy content
+
+**caputuredimage**
+
+*association*
+
+belongs_to :prototype
+
+*table*
+
+integer :prototype_id  text :image1 image2
+
+**like**
+
+*association*
+
+belongs_to :user prototype
+
+*table*
+
+integer :user_id prototype_id
+
+**comment**
+
+*association*
+
+belongs_to :user prototype
+
+*table*
+
+integer :user_id prototype_id  text :content
+
+
