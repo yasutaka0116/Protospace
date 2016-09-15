@@ -31,7 +31,7 @@ belongs_to :prototype
 
 *table*
 
-integer :prototype_id  text :image1 image2
+integer :prototype_id role  text :image
 
 **like**
 
