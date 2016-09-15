@@ -49,4 +49,8 @@ end
 
   gem "haml-rails","~>0.9"
 
+  gem 'bootstrap-sass', '~>3.3.6'
+
+
+
 
