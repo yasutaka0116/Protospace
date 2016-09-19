@@ -45,6 +45,8 @@ group :development do
   gem 'spring'
 
   gem "erb2haml"
+
+  gem "pry-rails"
 end
 
   gem "haml-rails","~>0.9"
