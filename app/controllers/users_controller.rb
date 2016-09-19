@@ -9,8 +9,9 @@ class UsersController < ApplicationController
 
   def update
     current_user.update(update_params)
+    flash[:success]="edit complited"
     redirect_to :root and return
-  end
+      end
 
   private
   def update_params
