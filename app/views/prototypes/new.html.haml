@@ -8,38 +8,38 @@
       .row
         .col-md-12
           .cover-image-upload
-            =f.fields_for :capturedimage do |ff|
+            =f.fields_for :capturedimages do |ff|
               =ff.file_field :image
               =ff.hidden_field :role, value: "mainimage"
         .col-md-12
           %ul.proto-sub-list.list-group
             %li.list-group-item.col-md-4
               .image-upload
-                =f.fields_for :capturedimage do |fff|
+                =f.fields_for :capturedimages do |fff|
                   =fff.file_field :image
                   =fff.hidden_field :role, value: "subimage"
             %li.list-group-item.col-md-4
               .image-upload
-                =f.fields_for :capturedimage do |ffff|
+                =f.fields_for :capturedimages do |ffff|
                   =ffff.file_field :image
                   =ffff.hidden_field :role, value: "subimage"
             %li.list-group-item.col-md-4
               .image-upload-plus
                 %span +
-    .row.proto-description
-      .col-md-12
-        =f.text_field :catchcopy, placeholder: "Catch Copy"
-      .col-md-12
-        =f.text_area :content, placeholder: "Concept", cols: "30", rows: "4"
-      .col-md-12
-        %h4 Tag List
-        .row
-          .col-md-3
-            %input{type: "text", placeholder: "Web Design"}/
-          .col-md-3
-            %input{type: "text", placeholder: "UI"}/
-          .col-md-3
-            %input{type: "text", placeholder: "Application"}/
-    .row.text-center.proto-btn
-      .btn.btn-lg.btn-primary.btn-block
-        =f.submit "publish"
+      .row.proto-description
+        .col-md-12
+          =f.text_field :catchcopy, placeholder: "Catch Copy"
+        .col-md-12
+          =f.text_area :content, placeholder: "Concept", cols: "30", rows: "4"
+        .col-md-12
+          %h4 Tag List
+          .row
+            .col-md-3
+              %input{type: "text", placeholder: "Web Design"}/
+            .col-md-3
+              %input{type: "text", placeholder: "UI"}/
+            .col-md-3
+              %input{type: "text", placeholder: "Application"}/
+      .row.text-center.proto-btn
+        .btn.btn-lg.btn-primary.btn-block
+          =f.submit "publish"

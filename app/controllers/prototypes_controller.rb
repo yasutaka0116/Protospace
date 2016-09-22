@@ -16,7 +16,7 @@ class PrototypesController < ApplicationController
 
   private
   def create_params
-    params.require(:prototype).permit(:name, :catchcopy, :content, capturedimages_attributes:[:image]).merge(capturedimages_attributes:[:role])
+    params.require(:prototype).permit(:name, :catchcopy, :content, :capturedimages_attributes =>[:image, :role])
   end
 
 end
