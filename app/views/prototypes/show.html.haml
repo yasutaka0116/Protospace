@@ -9,7 +9,7 @@
           %h4#top-aligned-media.media-heading
             = @prototype.name
           .proto-user
-            =link_to "#{@prototype.user.name}", user_path(@prototype.user_id)
+            = link_to "#{@prototype.user.name}", user_path(@prototype.user_id)
             %span.degree
               = @prototype.user.profile
               = @prototype.user.works
