@@ -1,6 +1,6 @@
 class PrototypesController < ApplicationController
   def index
-    @prototypes=Prototype.all
+    @prototypes = Prototype.all
   end
   def show
     @prototype=Prototype.find(params[:id])
@@ -18,7 +18,7 @@ class PrototypesController < ApplicationController
 
   private
   def create_params
-    params.require(:prototype).permit(:name, :catchcopy, :content, :user_id, :capturedimages_attributes =>[:image, :role])
+    params.require(:prototype).permit(:name, :catchcopy, :content, :user_id, capturedimages_attributes:[:image, :role])
   end
 
 end
