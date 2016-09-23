@@ -1,2 +1,2 @@
-DATE::DATE_FORMATS[:updated_at]="%b%d"
+Date::DATE_FORMATS[:updated_at]="%b%d"
 
