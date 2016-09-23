@@ -4,6 +4,7 @@
       %header.row.user-nav.row
         .col-md-12
           .proto-new-title
+            =f.hidden_field :user_id, value: current_user.id
             =f.text_field :name, placeholder: "Title"
       .row
         .col-md-12
