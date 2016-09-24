@@ -17,7 +17,7 @@ class PrototypesController < ApplicationController
     redirect_to :root
   end
 
-  def delete
+  def destroy
     prototype = Prototype.destroy(params[:id])
     if prototype.user_id == current_user.id
       prototype.destroy
