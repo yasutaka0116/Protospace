@@ -18,7 +18,10 @@ class PrototypesController < ApplicationController
   end
 
   def delete
-    Prototype.destroy(params[:id])
+    prototype = Prototype.destroy(params[:id])
+    if prototype.user_id == current_user.id
+      prototype.destroy
+    end
     redirect_to :root
   end
 
@@ -28,7 +31,9 @@ class PrototypesController < ApplicationController
 
   def update
     @prototype =Prototype.find(params[:id])
-    @prototype.update(update_params)
+    if @prototype.user_id == current_user.id
+       @prototype.update(update_params)
+    end
     flash[:success]="edit complited"
     redirect_to :root
   end
