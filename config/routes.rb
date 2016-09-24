@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   post  '/prototypes'       =>    'prototypes#create'
   get  '/prototypes/:id/edit'  => 'prototypes#edit'
   delete  '/prototypes/:id'  =>'prototypes#delete'
+  patch  '/prototypes/:id'  => 'prototypes#update'
   resources :users, only: [:show, :edit, :update]
 end
