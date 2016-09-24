@@ -1,4 +1,5 @@
 class PrototypesController < ApplicationController
+
   def index
     @prototypes = Prototype.all
   end
@@ -15,10 +16,19 @@ class PrototypesController < ApplicationController
     redirect_to :root
   end
 
+  def delete
+    Prototype.destroy(params[:id])
+    redirect_to :root
+  end
+
+
+
 
   private
   def create_params
-    params.require(:prototype).permit(:name, :catchcopy, :content, :user_id, capturedimages_attributes:[:image, :role])
+    params.require(:prototype).permit(:name, :catchcopy, :content, :user_id, capturedimages_attributes:[:image, :role,])
   end
+
+
 
 end
