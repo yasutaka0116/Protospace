@@ -16,7 +16,7 @@
     .row
       .col-sm-4.col-md-3.proto-content
         .thumbnail
-          =link_to  "/prototypes/#{prototype.id}" do
+          =link_to  prototype_path(prototype.id) do
             =image_tag prototype.capturedimages.first.image
             .caption
               %h3

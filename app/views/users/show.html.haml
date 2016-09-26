@@ -30,11 +30,11 @@
           %button.btn.btn-defoult.dropdown-toggle{"data-toggle"=>"dropdown","id"=>"dropdownMenu","type"=>"button","aira-expanded"=>"false"}Action
           %ul.dropdown-menu{"aria-labelledy"=>"dropdownMenu1"}
             %li
-              = link_to "Delete","/prototypes/#{prototype.id}",method: :delete
+              = link_to "Delete", prototype_path(prototype.id),method: :delete
             %li
-              = link_to "Edit", "/prototypes/#{prototype.id}/edit"
+              = link_to "Edit", edit_prototype_path(prototype.id)
         .thumbnail
-          = link_to "/prototypes/#{prototype.id}" do
+          = link_to prototype_path do
             = image_tag prototype.capturedimages.first.image
             .caption
               %h3
