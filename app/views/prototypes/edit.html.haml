@@ -1,0 +1,41 @@
+.container.proto-new
+  = form_for @prototype, :url => "/prototypes/#{@prototype.id}", :html => {:method =>:patch} do |f|
+    .col-md-8.col-md-offset-2
+      %header.row.user-nav.row
+        .col-md-12
+          .proto-new-title
+            = f.hidden_field :user_id, value: current_user.id
+            = f.text_field :name, placeholder: "Title"
+      .row
+        .col-md-12
+          .cover-image-upload
+            = f.fields_for :capturedimages, @prototype.capturedimages.where(role: 0) do |mainimage|
+              = mainimage.file_field :image
+              = mainimage.hidden_field :role, value: "mainimage"
+        .col-md-12
+          %ul.proto-sub-list.list-group
+            = f.fields_for :capturedimages, @prototype.capturedimages.where(role: 1) do |subimage|
+              %li.list-group-item.col-md-4
+                .image-upload
+                  = subimage.file_field :image
+                  = subimage.hidden_field :role, value: "subimage"
+            %li.list-group-item.col-md-4
+              .image-upload-plus
+                %span +
+      .row.proto-description
+        .col-md-12
+          = f.text_field :catchcopy, placeholder: "Catch Copy"
+        .col-md-12
+          = f.text_area :content, placeholder: "Concept", cols: "30", rows: "4"
+        .col-md-12
+          %h4 Tag List
+          .row
+            .col-md-3
+              %input{type: "text", placeholder: "Web Design"}/
+            .col-md-3
+              %input{type: "text", placeholder: "UI"}/
+            .col-md-3
+              %input{type: "text", placeholder: "Application"}/
+      .row.text-center.proto-btn
+        .btn.btn-lg.btn-primary.btn-block
+          = f.submit "publish"
