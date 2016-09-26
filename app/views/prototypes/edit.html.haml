@@ -9,16 +9,16 @@
       .row
         .col-md-12
           .cover-image-upload
-            = f.fields_for :capturedimages, @prototype.capturedimages.where(role: 0) do |ff|
-              = ff.file_field :image
-              = ff.hidden_field :role, value: "mainimage"
+            = f.fields_for :capturedimages, @prototype.capturedimages.where(role: 0) do |mainimage|
+              = mainimage.file_field :image
+              = mainimage.hidden_field :role, value: "mainimage"
         .col-md-12
           %ul.proto-sub-list.list-group
-            = f.fields_for :capturedimages, @prototype.capturedimages.where(role: 1)  do |fff|
+            = f.fields_for :capturedimages, @prototype.capturedimages.where(role: 1) do |subimage|
               %li.list-group-item.col-md-4
                 .image-upload
-                  = fff.file_field :image
-                  = fff.hidden_field :role, value: "subimage"
+                  = subimage.file_field :image
+                  = subimage.hidden_field :role, value: "subimage"
             %li.list-group-item.col-md-4
               .image-upload-plus
                 %span +
