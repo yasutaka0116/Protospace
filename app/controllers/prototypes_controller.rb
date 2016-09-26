@@ -1,6 +1,6 @@
 class PrototypesController < ApplicationController
 
-   before_action :set_prototype, only:[:show, :edit, :update]
+   before_action :set_prototype, only:[:show, :edit, :update, :destroy]
 
   def index
     @prototypes = Prototype.all
@@ -20,9 +20,8 @@ class PrototypesController < ApplicationController
   end
 
   def destroy
-    prototype = Prototype.destroy(params[:id])
-    if prototype.user_id == current_user.id
-      prototype.destroy
+    if @prototype.user_id == current_user.id
+       @prototype.destroy
     end
     redirect_to :root
   end
