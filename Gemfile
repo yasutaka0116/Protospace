@@ -58,3 +58,7 @@ end
   gem 'paperclip'
 
   gem'carrierwave'
+
+  gem 'kaminari'
+
+
