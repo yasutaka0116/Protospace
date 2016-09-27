@@ -15,10 +15,8 @@
               = @prototype.user.works
 
     .col-md-6.text-right
-      %button.btn.btn-default
-        = image_tag"icon_heart.svg"
-        Like
-        %span.num 20
+      .btn.btn-defult.increment-button#likes-box
+        = render partial: 'likes/like', locals: { prototype: @prototype, likes: @likes }
   .row
     .col-md-9
       =image_tag @prototype.capturedimages.first.image, :class => 'img-responsive'
