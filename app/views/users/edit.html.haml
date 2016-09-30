@@ -8,8 +8,8 @@
             .user-name.col-md-10
               =f.text_field :name, placeholder: "Username"
             .user-image.col-md-2
-              .btn.btn-primary
-                =f.file_field :image, value: "Changeimage"
+              = f.button "Changeimage", class: "btn btn-primary"
+              = f.file_field :avatar
           .user-email
             =f.text_field :email, placeholder: "E-mail"
         .col-md-12
