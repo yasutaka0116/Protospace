@@ -9,7 +9,7 @@
             .user-name.col-md-10
               =f.text_field :name, placeholder: "Username"
             .user-image.col-md-2
-              = button_tag "Add image", class: "btn btn-primary"
+              = f.button "Add image", class: "btn btn-primary"
               / %button.btn.btn-primary Add image
               = f.file_field :avatar
               / %input{type: "file"}/

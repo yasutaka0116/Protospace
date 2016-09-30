@@ -2,8 +2,13 @@
   %header.user-nav
     .media
       .media-left
-        = link_to user_path(@user), :disabled => true do
-          = image_tag @user.avatar, style: "width: 64px; height: 64px;", alt: "64x64", "data-holder-rendered" => true, "data-src" => "holder.js/64x64", class: "media-object"
+        = link_to @user, disabled: true do
+          = image_tag @user.avatar,
+                      style: "width: 64px; height: 64px;",
+                      alt: "64x64",
+                      "data-holder-rendered" => true,
+                      "data-src" => "holder.js/64x64",
+                      class: "media-object"
       .media-body
         %h4#top-aligned-media.media-heading
           Top aligned media

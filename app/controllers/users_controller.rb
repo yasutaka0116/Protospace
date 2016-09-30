@@ -11,13 +11,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    current_user.update(update_params)
+    current_user.update(user_params)
     flash[:success]="edit complited"
     redirect_to :root and return
       end
 
   private
-  def update_params
+  def user_params
     params.require(:user).permit(:name, :email, :member,:profile, :works ,:avatar)
   end
 

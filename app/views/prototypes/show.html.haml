@@ -3,14 +3,17 @@
     .col-md-6
       .media
         .media-left
-          = link_to user_path(@prototype.user.id) do
-            / %a{href: "#"}
-            = image_tag @prototype.user.avatar, style: "width: 64px; height: 64px;", alt: "64x64", "data-holder-rendered" => true, "data-src" => "holder.js/64x64", class: "media-object"
+          = link_to @prototype.user do
+            = image_tag @prototype.user.avatar,
+                        style: "width: 64px; height: 64px;",
+                        alt: "64x64",
+                        "data-holder-rendered" => true,
+                        "data-src" => "holder.js/64x64",
+                        class: "media-object"
         .media-body
-          %h4#top-aligned-media.media-heading
-            = @prototype.name
+          %h4#top-aligned-media.media-heading= @prototype.name
           .proto-user
-            = link_to "by #{@prototype.user.name}", user_path(@prototype.user_id)
+            = link_to "by #{@prototype.user.name}", @prototype.user
             %span.degree
               = @prototype.user.profile
               = @prototype.user.works
