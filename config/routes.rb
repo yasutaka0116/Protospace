@@ -9,4 +9,5 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
   end
   resources :users, only: [:show, :edit, :update]
+  resources :tags, only: [:show, :index]
 end

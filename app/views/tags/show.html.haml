@@ -1,0 +1,18 @@
+.container
+  .row
+    .tag-header
+      %span
+        = @tag.name
+    - @prototypes.each do |prototype|
+      .col-sm-4.col-md-3.proto-content
+        .thumbnail
+          = link_to prototype_path(prototype) do
+            = image_tag prototype.capturedimages.first.image
+          .caption
+            %h3
+              = prototype.name
+            .proto-meta
+              .proto-user
+                = link_to "#{prototype.user.name}", user_path(prototype.user_id)
+              .proto-posted
+                = prototype.created_at.to_s(:updated_at)

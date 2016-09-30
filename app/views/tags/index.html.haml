@@ -1,0 +1,9 @@
+.container
+  .row
+    - @tags.each do |tag|
+      .col-sm-4.col-sm-3
+        = link_to  tag_path(tag.id), class: "tag thumbnail" do
+          .tag-name
+            = tag.name
+          .tag-project
+            = tag.taggings_count
