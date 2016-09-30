@@ -42,11 +42,11 @@
               .proto-meta
                 .proto-date
                   = prototype.created_at.to_formatted_s(:updated_at)
+
               %ul.proto-tag-list.list-inline
-                %li
-                  %a{href: "#", class: "btn btn-default"} iPad
-                %li
-                  %a{href: "#", class: "btn btn-default"} wireframe
+                - prototype.tags.each do |tag|
+                  %li
+                    = link_to "#{tag.name}",tag_path(tag.id),class: "btn btn-default"
 .text-center
   = paginate @prototypes
   / %ul.pagination
