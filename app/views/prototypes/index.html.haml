@@ -6,9 +6,9 @@
   .container
     .row
       %ul.nav.nav-pills.col-lg-11
-        %li.active{role: "presentation"}
+        %li.active{role: "presentation", id: "js-active"}
           = link_to "Popular PROTO", prototypes_popular_path, remote: true
-        %li{role: "presentation"}
+        %li{role: "presentation", id: "js-active"}
           = link_to "Newest PROTO", prototypes_newest_path, remote: true
       %button{type: "button", class: "btn btn-default col-lg-1"} View Tags
 %span#prototype
