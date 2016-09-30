@@ -7,36 +7,18 @@
     .row
       %ul.nav.nav-pills.col-lg-11
         %li.active{role: "presentation"}
-          = link_to "Popular PROTO", root_path
+          = link_to "Popular PROTO", prototypes_popular_path, remote: true
         %li{role: "presentation"}
-          = link_to "Newest PROTO", prototypes_newest_path
+          = link_to "Newest PROTO", prototypes_newest_path, remote: true
       %button{type: "button", class: "btn btn-default col-lg-1"} View Tags
--@prototypes.each do |prototype|
-  .container.proto-list
-    .row
-      .col-sm-4.col-md-3.proto-content
-        .thumbnail
-          =link_to  prototype_path(prototype) do
-            =image_tag prototype.capturedimages.first.image
-            .caption
-              %h3
-                =prototype.name
-              .proto-meta
-                .proto-user
-                  =link_to "#{prototype.user.name}", user_path(prototype.user_id)
-                .proto-posted
-                  =prototype.created_at.to_s(:updated_at)
-              %ul.proto-tag-list.list-inline
-                %li
-                  %a{href: "#", class: "btn btn-default"} iPad
-                %li
-                  %a{href: "#", class: "btn btn-default"} wireframe
-
+%span#prototype
+  = render partial: 'prototypes/prototype', collection: @prototypes
 .text-center
   = paginate @prototypes
 
   / %ul.pagination
   /   %li.disabled
+
   /     %a{"aria-label" => "Previous", href: "#"}
   /       %span{"aria-hidden" => "true"} «
   /   %li.active

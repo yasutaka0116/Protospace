@@ -1,0 +1,19 @@
+.container.proto-list
+  .row
+    .col-sm-4.col-md-3.proto-content
+      .thumbnail
+        =link_to  prototype_path(prototype) do
+          =image_tag prototype.capturedimages.first.image
+          .caption
+            %h3
+              =prototype.name
+            .proto-meta
+              .proto-user
+                =link_to "#{prototype.user.name}", user_path(prototype.user_id)
+              .proto-posted
+                =prototype.created_at.to_s(:updated_at)
+            %ul.proto-tag-list.list-inline
+              %li
+                %a{href: "#", class: "btn btn-default"} iPad
+              %li
+                %a{href: "#", class: "btn btn-default"} wireframe
