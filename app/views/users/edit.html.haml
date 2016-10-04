@@ -8,6 +8,7 @@
             .user-name.col-md-10
               =f.text_field :name, placeholder: "Username"
             .user-image.col-md-2
+              = image_tag current_user.avatar, style: "width: 75px; height: 75px; border-radius: 100px; position: relative; right: 16px;", alt: "64x64", "data-holder-rendered" => true, "data-src" => "holder.js/64x64", class: "media-object", id: "js-avatar"
               = f.button "Changeimage", class: "btn btn-primary"
               = f.file_field :avatar
           .user-email
