@@ -10,6 +10,7 @@
         .col-md-12
           .cover-image-upload
             =f.fields_for :capturedimages do |ff|
+              %img#main_preview{style: "width: 100%; height: 100%;"}
               =ff.file_field :image
               =ff.hidden_field :role, value: "mainimage"
         .col-md-12
@@ -17,14 +18,22 @@
             %li.list-group-item.col-md-4
               .image-upload
                 =f.fields_for :capturedimages do |fff|
+                  %img#sub_1_preview{style: "width: 100%; height: 100%;"}
                   =fff.file_field :image
                   =fff.hidden_field :role, value: "subimage"
             %li.list-group-item.col-md-4
               .image-upload
                 =f.fields_for :capturedimages do |ffff|
+                  %img#sub_2_preview{style: "width: 100%; height: 100%;"}
                   =ffff.file_field :image
                   =ffff.hidden_field :role, value: "subimage"
-            %li.list-group-item.col-md-4
+            %li.list-group-item.col-md-4.hide_form#plus
+              .image-upload
+                =f.fields_for :capturedimages do |fffff|
+                  %img#sub_3_preview{style: "width: 100%; height: 100%;"}
+                  =fffff.file_field :image
+                  =fffff.hidden_field :role, value: "subimage"
+            %li.list-group-item.col-md-4#add_new_form
               .image-upload-plus
                 %span +
       .row.proto-description
