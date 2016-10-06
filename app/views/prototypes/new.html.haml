@@ -1,46 +1,41 @@
 .container.proto-new
-  =form_for @prototype, :url => prototypes_path do |f|
+  = form_for @prototype, :url => prototypes_path do |f|
     .col-md-8.col-md-offset-2
       %header.row.user-nav.row
         .col-md-12
           .proto-new-title
-            =f.hidden_field :user_id, value: current_user.id
-            =f.text_field :name, placeholder: "Title"
+            = f.hidden_field :user_id, value: current_user.id
+            = f.text_field :name, placeholder: "Title"
       .row
         .col-md-12
           .cover-image-upload
-            =f.fields_for :capturedimages do |ff|
+            = f.fields_for :capturedimages do |mainimage|
               %img#main_preview{style: "width: 100%; height: 100%;"}
-              =ff.file_field :image
-              =ff.hidden_field :role, value: "mainimage"
+              = mainimage.file_field :image
+              = mainimage.hidden_field :role, value: "mainimage"
         .col-md-12
           %ul.proto-sub-list.list-group
-            %li.list-group-item.col-md-4
-              .image-upload
-                =f.fields_for :capturedimages do |fff|
-                  %img#sub_1_preview{style: "width: 100%; height: 100%;"}
-                  =fff.file_field :image
-                  =fff.hidden_field :role, value: "subimage"
-            %li.list-group-item.col-md-4
-              .image-upload
-                =f.fields_for :capturedimages do |ffff|
-                  %img#sub_2_preview{style: "width: 100%; height: 100%;"}
-                  =ffff.file_field :image
-                  =ffff.hidden_field :role, value: "subimage"
+            - 2.times do |i|
+              %li.list-group-item.col-md-4
+                .image-upload
+                  = f.fields_for :capturedimages do |subimage|
+                    %img{id: "sub_#{i+1}_preview", style: "width: 100%; height: 100%;"}
+                    = subimage.file_field :image
+                    = subimage.hidden_field :role, value: "subimage"
             %li.list-group-item.col-md-4.hide_form#plus
               .image-upload
-                =f.fields_for :capturedimages do |fffff|
+                = f.fields_for :capturedimages do |plusimage|
                   %img#sub_3_preview{style: "width: 100%; height: 100%;"}
-                  =fffff.file_field :image
-                  =fffff.hidden_field :role, value: "subimage"
+                  = plusimage.file_field :image
+                  = plusimage.hidden_field :role, value: "subimage"
             %li.list-group-item.col-md-4#add_new_form
               .image-upload-plus
                 %span +
       .row.proto-description
         .col-md-12
-          =f.text_field :catchcopy, placeholder: "Catch Copy"
+          = f.text_field :catchcopy, placeholder: "Catch Copy"
         .col-md-12
-          =f.text_area :content, placeholder: "Concept", cols: "30", rows: "4"
+          = f.text_area :content, placeholder: "Concept", cols: "30", rows: "4"
         .col-md-12
           %h4 Tag List
           .row
@@ -55,4 +50,4 @@
               / %input{type: "text", placeholder: "Application"}/
       .row.text-center.proto-btn
         .btn.btn-lg.btn-primary.btn-block
-          =f.submit "publish"
+          = f.submit "publish"
