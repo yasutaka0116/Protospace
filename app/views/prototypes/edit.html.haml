@@ -12,16 +12,16 @@
             = f.fields_for :capturedimages, @prototype.capturedimages.where(role: 0) do |mainimage|
               = mainimage.file_field :image
               = mainimage.hidden_field :role, value: "mainimage"
+              = image_tag @prototype.capturedimages.first.image, id: "main_preview",style: "width: 100%; height: 100%;"
         .col-md-12
           %ul.proto-sub-list.list-group
-            = f.fields_for :capturedimages, @prototype.capturedimages.where(role: 1) do |subimage|
-              %li.list-group-item.col-md-4
-                .image-upload
-                  = subimage.file_field :image
-                  = subimage.hidden_field :role, value: "subimage"
-            %li.list-group-item.col-md-4
-              .image-upload-plus
-                %span +
+            - @prototype.capturedimages.where(role: 1).each_with_index do |prototype,i|
+              = f.fields_for :capturedimages, prototype do |subimage|
+                %li.list-group-item.col-md-4
+                  .image-upload
+                    = subimage.file_field :image
+                    = subimage.hidden_field :role, value: "subimage"
+                    = image_tag prototype.image, id: "sub_#{i + 1}_preview",style: "width: 100%; height: 100%;"
       .row.proto-description
         .col-md-12
           = f.text_field :catchcopy, placeholder: "Catch Copy"
