@@ -17,8 +17,5 @@ CarrierWave.configure do |config|
     when 'test'
       config.storage = :file
     end
-  #     config.ignore_integrity_errors = false
-  # config.ignore_processing_errors = false
-  # config.ignore_download_errors = false
 end
 
