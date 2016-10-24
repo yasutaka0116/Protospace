@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'pry-rails'
+
 describe Prototype do
 
 
@@ -42,12 +42,13 @@ describe Prototype do
       expect(prototype.errors[:content]).to include("can't be blank")
     end
   end
+
   describe "like_usesr(user_id)" do
     context "when liked by a user" do
     it "retutns true" do
       user = create(:user)
-      prototype = create(:prototype)
-      like = create(:like, user_id: user.id, prototype_id: prototype.id)
+      prototype = create(:prototype, user: user)
+      like = create(:like, prototype: prototype, user: user)
       expect(prototype.like_user(user.id)).to be_truthy
     end
   end
@@ -55,8 +56,8 @@ describe Prototype do
       it "returns nill" do
         user = create(:user)
         another_user = create(:user, id: "5")
-        prototype = create(:prototype)
-        like = create(:like, user_id: user.id, prototype_id: prototype.id)
+        prototype = create(:prototype, user: user)
+        like = create(:like, prototype: prototype, user: user)
         expect(prototype.like_user(another_user.id)).to be_nil
       end
     end
