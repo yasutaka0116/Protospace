@@ -9,13 +9,13 @@
       .row
         .col-md-12
           .cover-image-upload
-            = f.fields_for :capturedimages, @prototype.capturedimages.where(role: 0) do |mainimage|
+            = f.fields_for :capturedimages, @mainimage do |mainimage|
               = mainimage.file_field :image
               = mainimage.hidden_field :role, value: "mainimage"
               = image_tag @prototype.capturedimages.first.image, id: "main_preview",style: "width: 100%; height: 100%;"
         .col-md-12
           %ul.proto-sub-list.list-group
-            - @prototype.capturedimages.where(role: 1).each_with_index do |prototype,i|
+            - @subimage.each_with_index do |prototype,i|
               = f.fields_for :capturedimages, prototype do |subimage|
                 %li.list-group-item.col-md-4
                   .image-upload
