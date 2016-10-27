@@ -39,6 +39,9 @@ describe PrototypesController, type: :controller do
     end
 
     describe 'POST #create' do
+      before do
+        params_invalid
+      end
       context 'with valid attributes' do
 
         it "saves the new prototype in the database" do
@@ -63,7 +66,6 @@ describe PrototypesController, type: :controller do
         end
 
         it "redirects new_prototype_path" do
-          # prototype = create(:prototype)
           post :create, prototype: params_invalid
           expect(response).to redirect_to new_prototype_path
         end
@@ -181,14 +183,15 @@ describe PrototypesController, type: :controller do
     end
 
     describe 'DELETE #destroy' do
-
+      before do
+        prototype
+      end
       it "assigns the requested prototype @prototype" do
         delete :destroy, id: prototype
         expect(assigns(:prototype)).to eq prototype
       end
 
       it "delete the prototype" do
-        prototype = create(:prototype)
         expect{delete :destroy, id: prototype}.to change(Prototype, :count).by(0)
       end
 
