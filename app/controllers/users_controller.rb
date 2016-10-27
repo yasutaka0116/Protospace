@@ -8,12 +8,10 @@ class UsersController < ApplicationController
 
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = current_user
-    @user.update(user_params)
+    current_user.update(user_params)
     flash[:success]="edit complited"
     redirect_to :root and return
       end
