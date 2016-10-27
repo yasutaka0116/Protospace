@@ -17,26 +17,42 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    Prototype.create(create_params
-      )
-    redirect_to :root
+    @prototype = Prototype.create(create_params)
+    if @prototype.valid?
+      flash[:success]="prototype successfully"
+      redirect_to :root
+    else
+      flash[:danger]="prototype unsuccessfully"
+      redirect_to :action => "new"
+    end
   end
 
   def destroy
     if @prototype.user_id == current_user.id
        @prototype.destroy
     end
-    redirect_to :root
+      flash[:success]="delete complited"
+      redirect_to :root
   end
 
   def edit
+    @mainimage = @prototype.capturedimages.first
+    @subimage = @prototype.capturedimages.where(role: 1)
   end
 
   def update
     if @prototype.user_id == current_user.id
-       @prototype.update(update_params)
+      @prototype.update(update_params)
+      if @prototype.valid?
+        flash[:success]="edit complited"
+        redirect_to :root
+      else
+        flash[:danger]="edit failled"
+        redirect_to :action=> "edit"
+        @prototype.update(update_params)
+      end
     end
-end
+  end
 
 
 
