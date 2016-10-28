@@ -10,6 +10,8 @@ class Prototype < ActiveRecord::Base
   acts_as_taggable
   acts_as_ordered_taggable_on :prototypes
 
+  paginates_per 8
+
 
   validates :name ,presence: true
   validates :catchcopy ,presence: true
