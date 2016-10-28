@@ -1,9 +1,10 @@
 class PrototypesController < ApplicationController
 
    before_action :set_prototype, only:[:show, :edit, :update, :destroy]
+   before_action :authenticate_user!, only:[:new, :create, :edit, :update, :destroy]
 
   def index
-    @prototypes = Prototype.order("likes_count DESC").page(params[:page]).per(8)
+    @prototypes = Prototype.order("likes_count DESC").page(params[:page])
   end
 
   def show
@@ -17,13 +18,13 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.create(create_params)
-    if @prototype.valid?
-      flash[:success]="prototype successfully"
-      redirect_to :root
-    else
-      flash[:danger]="prototype unsuccessfully"
-      redirect_to :action => "new"
+    @prototype = Prototype.new(create_params)
+      if @prototype.save
+        flash[:success]="prototype successfully"
+        redirect_to :root
+      else
+        flash[:danger]="prototype unsuccessfully"
+        redirect_to new_prototype_path
     end
   end
 
@@ -31,8 +32,8 @@ class PrototypesController < ApplicationController
     if @prototype.user_id == current_user.id
        @prototype.destroy
     end
-      flash[:success]="delete complited"
-      redirect_to :root
+    flash[:success]="delete complited"
+    redirect_to :root
   end
 
   def edit
@@ -42,14 +43,13 @@ class PrototypesController < ApplicationController
 
   def update
     if @prototype.user_id == current_user.id
-      @prototype.update(update_params)
-      if @prototype.valid?
-        flash[:success]="edit complited"
-        redirect_to :root
+
+      if @prototype.update(update_params)
+      flash[:success]="edit complited"
+      redirect_to :root
       else
-        flash[:danger]="edit failled"
-        redirect_to :action=> "edit"
-        @prototype.update(update_params)
+        flash[:danger]="edit failed"
+        redirect_to edit_prototype_path
       end
     end
   end
