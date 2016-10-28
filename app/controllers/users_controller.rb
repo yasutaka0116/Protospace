@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_action :sign_in_required, only:[:edit, :update]
+
   def show
     @user = User.find(params[:id])
     @prototypes = @user.prototypes.page(params[:page]).per(8)
@@ -8,13 +10,15 @@ class UsersController < ApplicationController
 
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
-    current_user.update(user_params)
+    @user = current_user
+    @user.update(user_params)
     flash[:success]="edit complited"
     redirect_to :root and return
-      end
+  end
 
   private
   def user_params
