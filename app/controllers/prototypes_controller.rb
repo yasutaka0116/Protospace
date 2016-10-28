@@ -1,10 +1,10 @@
 class PrototypesController < ApplicationController
 
    before_action :set_prototype, only:[:show, :edit, :update, :destroy]
-   before_action :sign_in_required, only:[:new, :create, :edit, :update, :destory]
+   before_action :authenticate_user!, only:[:new, :create, :edit, :update, :destroy]
 
   def index
-    @prototypes = Prototype.order("likes_count DESC").page(params[:page]).per(8)
+    @prototypes = Prototype.order("likes_count DESC").page(params[:page])
   end
 
   def show
@@ -18,14 +18,15 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    if Prototype.create(create_params)
-      flash[:success]="prototype successfully"
-      redirect_to :root
-    else
-      flash[:danger]="prototype unsuccessfully"
-      redirect_to :action => "new"
+    @prototype = Prototype.new(create_params)
+      if @prototype.save
+        flash[:success]="prototype successfully"
+        redirect_to :root
+      else
+        flash[:danger]="prototype unsuccessfully"
+        redirect_to new_prototype_path
+    end
   end
-end
 
   def destroy
     if @prototype.user_id == current_user.id
@@ -47,7 +48,7 @@ end
       redirect_to :root
       else
         flash[:danger]="edit failed"
-        redirect_to :action =>"edit"
+        redirect_to edit_prototype_path
       end
     end
   end
