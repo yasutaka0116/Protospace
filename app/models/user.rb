@@ -13,6 +13,9 @@ class User < ActiveRecord::Base
   has_many :likes
   has_many :comments
 
+  paginates_per 8
+  
+
 
   validates :name, presence: true
   validates :password, length: {minimum: 8}

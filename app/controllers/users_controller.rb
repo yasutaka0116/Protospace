@@ -1,20 +1,24 @@
 class UsersController < ApplicationController
 
+  before_action :authenticate_user!, only: [:update, :edit ]
+
   def show
     @user = User.find(params[:id])
-    @prototypes = @user.prototypes.page(params[:page]).per(8)
+    @prototypes = @user.prototypes.page(params[:page])
   end
 
 
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
-    current_user.update(user_params)
+    @user = current_user
+    @user.update(user_params)
     flash[:success]="edit complited"
     redirect_to :root and return
-      end
+  end
 
   private
   def user_params
