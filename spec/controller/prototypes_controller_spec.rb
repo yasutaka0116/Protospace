@@ -1,12 +1,14 @@
 require "rails_helper"
 require "pry-rails"
 describe PrototypesController, type: :controller do
-  login_user
 
   let(:user){ create(:user)}
   let(:prototype){create(:prototype)}
   let(:params){attributes_for(:prototype)}
   let(:params_invalid){attributes_for(:prototype, content:"")}
+
+  describe "With user login" do
+    login_user
 
     describe 'GET #index' do
 
@@ -132,27 +134,31 @@ describe PrototypesController, type: :controller do
     end
 
     describe 'PATCH #update' do
+
       context "with valid attributes" do
 
         it "assigns the requested prototype to @prototype" do
-          patch :update, id: prototype, prototype: params
-          expect(assigns(:prototype)).to eq prototype
+            prototype =create(:prototype, user_id: subject.current_user.id)
+            patch :update, id: prototype , prototype: params
+            expect(assigns(:prototype)).to eq prototype
         end
 
 
         it "update atributes of prototype" do
-          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-          patch :update, id: prototype, prototype: attributes_for(:prototype, content:"テストテストテスト" )
+          prototype =create(:prototype,user_id: subject.current_user.id)
+          patch :update, id: prototype,  prototype: attributes_for(:prototype, content:"テストテストテスト" )
           prototype.reload
           expect(prototype.content).to eq ("テストテストテスト")
         end
 
         it "reirects to root_path" do
+          prototype =create(:prototype,user_id: subject.current_user.id)
           patch :update, id: prototype, prototype: params
           expect(response).to redirect_to :root
         end
 
         it "shows flash message to show update prototype successfully" do
+          prototype =create(:prototype,user_id: subject.current_user.id)
           patch :update, id: prototype, prototype: params
           expect(flash[:success]).to be_present
         end
@@ -162,18 +168,18 @@ describe PrototypesController, type: :controller do
       context 'with invalid attributes ' do
 
         it "does not save the new prototype" do
-          prototype = create(:prototype)
-          expect{patch :update, id: prototype, prototype: attributes_for(:prototype, content:"")}.to change(Prototype, :count).by(0)
+          prototype =create(:prototype,user_id: subject.current_user.id)
+          expect{patch :update, id: prototype, prototype: params_invalid}.to change(Prototype, :count).by(0)
         end
 
         it "renders the :edit template" do
-          # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-          patch :update,id: prototype, prototype: params_invalid
+          prototype =create(:prototype,user_id: subject.current_user.id)
+          patch :update, id: prototype, prototype: params_invalid
           expect(response).to redirect_to edit_prototype_path
         end
 
         it "shows flash message to show update prototype unsuccessfully" do
-          # allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+          prototype =create(:prototype,user_id: subject.current_user.id)
           patch :update, id: prototype, prototype: params_invalid
           expect(flash[:danger]).to be_present
         end
@@ -207,4 +213,48 @@ describe PrototypesController, type: :controller do
 
   end
 
+  end
+
+  describe "without user login" do
+
+    describe "GET #new" do
+      it "redirects sign_in page" do
+        get :new, id: prototype
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    describe "post #create" do
+      it "redirects sign_in page" do
+        post :create, id: prototype, prototype: params
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    describe "GET #edit" do
+      it "redirects sign_in page" do
+       get :edit, id: prototype
+       expect(response).to redirect_to new_user_session_path
+        end
+    end
+
+    describe "PATCH #update" do
+      it "redirects sign_in page" do
+        patch :update, id: prototype, prototype: params
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+    describe "DELETE #destroy" do
+      it "redirects sign_in page" do
+        delete :destroy, id: prototype
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+
+  end
+
 end
+
+
+
