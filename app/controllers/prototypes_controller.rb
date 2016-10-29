@@ -43,6 +43,7 @@ class PrototypesController < ApplicationController
 
   def update
     if @prototype.user_id == current_user.id
+
       if @prototype.update(update_params)
       flash[:success]="edit complited"
       redirect_to :root
@@ -52,7 +53,6 @@ class PrototypesController < ApplicationController
       end
     end
   end
-
 
 
 
