@@ -3,12 +3,13 @@ require "pry-rails"
 
 describe UsersController, type: :controller do
 
-    login_user
     let(:user) { create(:user) }
     let(:params) {
       {id: user.id,
       user: attributes_for(:user)}
     }
+  describe "with user login" do
+    login_user
 
   describe  'GET #show' do
 
@@ -40,7 +41,6 @@ describe UsersController, type: :controller do
   describe  'PATCH #update' do
 
     it "assigns the requested user to @user" do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       patch :update, id: user, user: params
       expect(user).to eq user
     end
@@ -65,7 +65,21 @@ describe UsersController, type: :controller do
     end
 
   end
-
+end
+  describe "without user login" do
+    describe "GET #edit" do
+      it "redirects sign_in page" do
+        get :edit, id: user
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+    describe "PATCH #update" do
+      it "redirects sign_in page" do
+        patch :update, id: user, user: params
+        expect(response).to redirect_to new_user_session_path
+      end
+    end
+  end
 
 
 end
