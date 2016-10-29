@@ -1,5 +1,4 @@
 require "rails_helper"
-require "pry-rails"
 
 describe UsersController, type: :controller do
 

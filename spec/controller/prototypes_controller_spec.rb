@@ -1,11 +1,10 @@
 require "rails_helper"
-require "pry-rails"
 describe PrototypesController, type: :controller do
 
   let(:user){ create(:user)}
   let(:prototype){create(:prototype)}
   let(:params){attributes_for(:prototype)}
-  let(:params_invalid){attributes_for(:prototype, content:"")}
+  let(:invalid_params){attributes_for(:prototype, content:"")}
 
   describe "With user login" do
     login_user
@@ -42,7 +41,7 @@ describe PrototypesController, type: :controller do
 
     describe 'POST #create' do
       before do
-        params_invalid
+        invalid_params
       end
       context 'with valid attributes' do
 
@@ -64,16 +63,16 @@ describe PrototypesController, type: :controller do
       context "with invalid attributes" do
 
         it "does not save the new prototype in the database" do
-          expect{post :create, prototype: params_invalid}.to change(Prototype, :count).by(0)
+          expect{post :create, prototype: invalid_params}.to change(Prototype, :count).by(0)
         end
 
         it "redirects new_prototype_path" do
-          post :create, prototype: params_invalid
+          post :create, prototype: invalid_params
           expect(response).to redirect_to new_prototype_path
         end
 
         it "shows flash message to show save the prototype unsuccessfully" do
-          post :create, prototype: params_invalid
+          post :create, prototype: invalid_params
           expect(flash[:danger]).to be_present
         end
 
@@ -169,18 +168,18 @@ describe PrototypesController, type: :controller do
 
         it "does not save the new prototype" do
           prototype =create(:prototype,user_id: subject.current_user.id)
-          expect{patch :update, id: prototype, prototype: params_invalid}.to change(Prototype, :count).by(0)
+          expect{patch :update, id: prototype, prototype: invalid_params}.to change(Prototype, :count).by(0)
         end
 
         it "renders the :edit template" do
           prototype =create(:prototype,user_id: subject.current_user.id)
-          patch :update, id: prototype, prototype: params_invalid
+          patch :update, id: prototype, prototype: invalid_params
           expect(response).to redirect_to edit_prototype_path
         end
 
         it "shows flash message to show update prototype unsuccessfully" do
           prototype =create(:prototype,user_id: subject.current_user.id)
-          patch :update, id: prototype, prototype: params_invalid
+          patch :update, id: prototype, prototype: invalid_params
           expect(flash[:danger]).to be_present
         end
 
