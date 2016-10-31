@@ -6,6 +6,10 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 require 'devise'
+
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'phantomjs/poltergeist'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -27,8 +31,25 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 # 追加した部分
 require 'capybara/poltergeist'
+Capybara.server_port = 3000
+
 Capybara.javascript_driver = :poltergeist
+Capybara.default_driver = :poltergeist
 #追加した部分
+Phantomjs.path # Force install on require
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, {phantomjs: Phantomjs.path, js_errors: false,
+                    timeout: 1000,
+                    debug: true,
+                    phantomjs_options: [
+                              '--load-images=no',
+                              '--ignore-ssl-errors=yes',
+                              '--ssl-protocol=any']})
+end
+
+Capybara.ignore_hidden_elements = false
+include Warden::Test::Helpers
+Warden.test_mode!
 
 
 ActiveRecord::Migration.maintain_test_schema!
@@ -42,6 +63,15 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, :type => :controller
   config.extend ControllerMacros, :type => :controller
 
+  # moduleをつかうため
+  config.include Features::SessionHelpers, type: :feature
+
+  config.include Warden::Test::Helpers
+  config.after :each do
+    Warden.test_reset!
+  end
+
+  # config.include RequestHelpers, :type => :request
 
   FactoryGirl::SyntaxRunner.class_eval do
     include ActionDispatch::TestProcess
